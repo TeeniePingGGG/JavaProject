@@ -1,6 +1,6 @@
 package banking;
 
-public class Account {
+public abstract class Account {
 
 	public String acnum;
 	public String name;
@@ -15,6 +15,8 @@ public class Account {
 		
 	}
 	
+	//이자 계산을 위한 추상메서드 각 클래스에 맞게 다형성을 위해!!!! 나는 추상메서드를 사용!!!
+	 public abstract int calculateInterest(int depositAmount);
 	
 	//계좌정보 출력
 	void acAllData() {
@@ -25,6 +27,9 @@ public class Account {
 		System.out.println("고객이름:"+name);
 		System.out.println("잔고:"+money);
 	}
+
+
+	
 	
 	
 }
