@@ -12,8 +12,6 @@ import java.util.InputMismatchException;
 import java.util.Iterator;
 
 
-
-
 //입금 예외처리
 class DepositMoneyErrror extends Exception{
 	public DepositMoneyErrror(String message) {
@@ -43,10 +41,6 @@ public class AccountManager {
 	public void makeAccount(int choice) {
 	    System.out.println("***신규계좌개설***");
 
-	    String acnum;
-	    String name;
-	    int money;
-
 	    System.out.println("계좌선택");
 	    System.out.println("1. 보통계좌");
 	    System.out.println("2. 신용신뢰계좌");
@@ -54,18 +48,18 @@ public class AccountManager {
 	    String geza = BankingSystemMain.scan.nextLine();  // 계좌 종류 선택
 
 	    System.out.println("계좌번호:"); 
-	    acnum = BankingSystemMain.scan.nextLine();
+	    String acnum = BankingSystemMain.scan.nextLine();
 	    
 	    System.out.println("고객이름:"); 
-	    name = BankingSystemMain.scan.nextLine();
+	    String name = BankingSystemMain.scan.nextLine();
 	    
 	    System.out.println("잔고:"); 
-	    money = BankingSystemMain.scan.nextInt();
+	    int money = BankingSystemMain.scan.nextInt();
 
 	    // 기본 이자율 입력 받기
 	    System.out.println("기본이자% (정수형태로 입력):");
 	    double basicInterestRate = BankingSystemMain.scan.nextDouble();
-	    BankingSystemMain.scan.nextLine();
+	    BankingSystemMain.scan.nextLine(); //줄바꿈 갱갱
 
 	   
 	    // Account 타입 변수 선언-> Account클래스가 계좌관련 부모클래스이다
@@ -86,10 +80,6 @@ public class AccountManager {
 	        System.out.println("잘못된 선택입니다.");
 	        return;
 	    }
-	    
-//	    // 계좌 정보를 DB에 삽입하기 위해 SQLinsert 호출
-//	    SQLinsert sqlInsert = new SQLinsert("education", "1234");
-//	    sqlInsert.insertAccountToDB(newAccount);  // 계좌 객체를 DB에 삽입
 	    
 	    //중복계좌 확인
 	    //Iterator는 HashSet<Account>에서 계좌정보를 순차적으로 가져오기 위해 사용!
@@ -175,7 +165,7 @@ public class AccountManager {
 			System.out.println("***출   금***");
 			System.out.println("계좌번호와 출금할 금액을 입력하세요");
 			System.out.println("계좌번호:"); 
-			String inputAcNum = BankingSystemMain.scan.nextLine();
+			String acnum = BankingSystemMain.scan.nextLine();
 			System.out.println("출금액:"); 
 			int outMoney = BankingSystemMain.scan.nextInt();
 			BankingSystemMain.scan.nextLine();
@@ -190,7 +180,7 @@ public class AccountManager {
 			 boolean found = false;
 
 		        for (Account account: accountMg) {
-		            if (account.getAcnum().equals(inputAcNum)) {
+		            if (account.getAcnum().equals(acnum)) {
 		                found = true;
 
 		                if (account.money >= outMoney) {
@@ -245,9 +235,9 @@ public class AccountManager {
 		}
 		System.out.println("-----------------------");
 		System.out.println("삭제할 계좌번호를 입력하시오");
-		String inputAcnum = BankingSystemMain.scan.nextLine();
+		String acnum = BankingSystemMain.scan.nextLine();
 		
-		Account tempAccount = new NormalAccount(inputAcnum, "", 0, 0);
+		Account tempAccount = new NormalAccount(acnum, "", 0, 0);
 		
 		
 		if(accountMg.contains(tempAccount)) {
@@ -263,6 +253,7 @@ public class AccountManager {
 	
 	
 	//io를 통해 직렬화하기
+	//데이터 내보내기
 	public void saveAcnum() {
 		try {
 			ObjectOutputStream out = new ObjectOutputStream(
@@ -279,6 +270,7 @@ public class AccountManager {
 		}
 	}
 	
+	//데이터 읽어오기
 	public void readAcnum() {
 	    try 
 	    {

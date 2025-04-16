@@ -33,18 +33,18 @@ public abstract class Account implements Serializable {
 	 
 	 @Override
 	 public boolean equals(Object obj) {
-	     if (this == obj) 
-	    	 return true; // 동일한 참조일 경우 true
-	     if (obj == null || getClass() != obj.getClass()) 
-	    	 return false; // 클래스가 다르면 false
-	     Account account = (Account) obj;
-	     return acnum.equals(account.acnum); // 계좌번호가 같으면 동일한 객체로 간주
+	     if (this == obj) return true;
+	     if (!(obj instanceof Account)) return false;
+
+	     Account other = (Account) obj;
+	     return this.getAcnum().equals(other.getAcnum()); // 계좌번호가 같으면 같다고 본다
 	 }
 
 	 @Override
 	 public int hashCode() {
-	     return acnum.hashCode(); // 계좌번호를 기준으로 해시값 생성
+	     return acnum.hashCode();
 	 }
+
 
 
 	
