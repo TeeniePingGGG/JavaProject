@@ -70,10 +70,8 @@ public class BankingSystemMain {
 					handler.deleteAccount(); break;
 				
 				case 6:
-				    handler.autoSaveMain(); // 저장옵션 (자동저장 ON/OFF)
+				    handler.autoSaveMain(); 
 				    break;
-
-
 				case 7:
 					handler.saveAcnum();
 					System.out.println("**** 프로그램 종료 ****");

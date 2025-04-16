@@ -31,8 +31,6 @@ public abstract class Account implements Serializable {
 	        this.money = money;
 	    }
 	 
-	 
-	 
 	 @Override
 	 public boolean equals(Object obj) {
 	     if (this == obj) 

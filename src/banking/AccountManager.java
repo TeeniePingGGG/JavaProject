@@ -87,6 +87,9 @@ public class AccountManager {
 	        return;
 	    }
 	    
+//	    // 계좌 정보를 DB에 삽입하기 위해 SQLinsert 호출
+//	    SQLinsert sqlInsert = new SQLinsert("education", "1234");
+//	    sqlInsert.insertAccountToDB(newAccount);  // 계좌 객체를 DB에 삽입
 	    
 	    //중복계좌 확인
 	    //Iterator는 HashSet<Account>에서 계좌정보를 순차적으로 가져오기 위해 사용!
@@ -128,7 +131,7 @@ public class AccountManager {
 			
 			System.out.println("***입   금***");
 			System.out.print("계좌번호: "); 
-			String inputAcNum = BankingSystemMain.scan.nextLine();
+			String acnum = BankingSystemMain.scan.nextLine();
 
 			System.out.print("금액: ");
 			int amount = BankingSystemMain.scan.nextInt(); 
@@ -144,7 +147,7 @@ public class AccountManager {
 
 			// 계좌 검색 및 입금 처리
 			for (Account account: accountMg) {
-				if (account.getAcnum().equals(inputAcNum)) {
+				if (account.getAcnum().equals(acnum)) {
 					int newBalance = account.calculateInterest(amount);
 					System.out.println("입금이 완료되었습니다. 현재 잔고: " + account.money);
 					return;
@@ -374,6 +377,7 @@ public class AccountManager {
         String choNum = BankingSystemMain.scan.nextLine();
 
         if (choNum.equals("1")) {
+        	//thread가 없거나 이미 종료되었을 경우
             if (autoSaveThread == null || !autoSaveThread.isAlive()) {
                 autoSaveThread = new AutoSaver(this);  
                 autoSaveThread.start();                
@@ -423,7 +427,7 @@ public class AccountManager {
 
                 
                 if (acc instanceof CreditTrustAccount) {
-                    CreditTrustAccount cta = (CreditTrustAccount) acc;
+                    CreditTrustAccount cta = (CreditTrustAccount) acc; //다운캐스팅
                     writer.write("신용등급: " + cta.creditGrade);
                     writer.newLine();
                 }
