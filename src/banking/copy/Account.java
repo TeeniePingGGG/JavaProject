@@ -1,4 +1,4 @@
-package banking;
+package banking.copy;
 
 import java.io.Serializable;
 
@@ -31,8 +31,6 @@ public abstract class Account implements Serializable {
 	        this.money = money;
 	    }
 	 
-	 
-	 //컬렉션 프레임워크에서 객체를 비교하고 저장(equals는 동등한지, hashcode는 해시값을 반환)
 	 @Override
 	 public boolean equals(Object obj) {
 	     if (this == obj) return true;

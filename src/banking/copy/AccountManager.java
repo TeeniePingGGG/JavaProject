@@ -1,4 +1,4 @@
-package banking;
+package banking.copy;
 
 import java.io.BufferedWriter;
 import java.io.EOFException;
@@ -81,26 +81,36 @@ public class AccountManager {
 	        return;
 	    }
 	    
-	    //중복계좌 발견
-	    if(accountMg.contains(newAccount)) {
-	    	System.out.println("중복계좌 발견! 덮어쓸까요??(y or n)");
-	    	String resp = BankingSystemMain.scan.nextLine();
+	    //중복계좌 확인
+	    //Iterator는 HashSet<Account>에서 계좌정보를 순차적으로 가져오기 위해 사용!
+	    //Iterator는 컬렉션에서 순차적으로 데이터를 탐색할 수 있는 방법!
+	    Iterator<Account> ac = accountMg.iterator();
+	    
+	    //has.next() -> accountMg에서 아직 처리하지 않은 계좌가 남아있는지 확인하는 조건
+	    while(ac.hasNext()) {
 	    	
-	    	if(resp.equalsIgnoreCase("y")) {
-	    		accountMg.remove(newAccount);
-	    		accountMg.add(newAccount);
-	    		System.out.println("기존정보 삭제 후 덮어쓰기");
+	    	//hasNext()가 true이면 next()를 호출하면서 다음 데이터를 가져온다.
+	    	Account account = ac.next();
+	    	if(acnum.compareTo(account.getAcnum())==0) {
+	    		System.out.println("중복계좌발견됨. 덮어쓸까요?(y or n)");
+	    		String resp = BankingSystemMain.scan.nextLine();
 	    		
-	    	}else if(resp.equalsIgnoreCase("n")) {
-	    		System.out.println("무시할거임!");
-	    		
-	    	}else {
-	    		System.out.println("y or n 중에서만 입력하세염~");
+	    		if(resp.equalsIgnoreCase("y")) {
+	    			ac.remove();
+	    			accountMg.add(newAccount);
+	    			System.out.println("기존정보 삭제 후 덮어쓰기!");
+	    		}
+	    		else if(resp.equalsIgnoreCase("n")) {
+	    			System.out.println("새로운 정보는 무시!");
+	    		}
+	    		else {
+	    			System.out.println("y or n 중에서 입력해주세요!");
+	    		}
+	    		return;
 	    	}
-	    }else {
-	    	accountMg.add(newAccount);
-	    	System.out.println("계좌개설이 완료되었습니다");
 	    }
+	    accountMg.add(newAccount);
+	    System.out.println("계좌개설이 완료되었습니다.");
 	}
 
 	
