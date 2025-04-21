@@ -156,6 +156,7 @@ public class AccountManager {
 			System.out.println("계좌번호와 출금할 금액을 입력하세요");
 			System.out.println("계좌번호:"); 
 			String acnum = BankingSystemMain.scan.nextLine();
+			
 			System.out.println("출금액:"); 
 			int outMoney = BankingSystemMain.scan.nextInt();
 			BankingSystemMain.scan.nextLine();
@@ -176,7 +177,8 @@ public class AccountManager {
 		                if (account.money >= outMoney) {
 		                    account.money -= outMoney;
 		                    System.out.println("출금이 완료되었습니다. 현재 잔고: " + account.money);
-		                } else {
+		                } 
+		                else {
 		                    System.out.println("잔고가 부족합니다. 금액 전체를 출금할까요?");
 		                    System.out.println("YES: 금액전체 출금처리, NO: 출금요청취소");
 		                    String response = BankingSystemMain.scan.nextLine();
@@ -185,9 +187,11 @@ public class AccountManager {
 		                        int totalWithdraw = account.money;
 		                        account.money = 0;
 		                        System.out.println("전체 금액 " + totalWithdraw + "원이 출금되었습니다. 현재 잔고: 0원");
-		                    } else if (response.equalsIgnoreCase("NO")) {
+		                    } 
+		                    else if (response.equalsIgnoreCase("NO")) {
 		                        System.out.println("출금 요청이 취소되었습니다.");
-		                    } else {
+		                    } 
+		                    else {
 		                        System.out.println("잘못된 입력입니다. 출금 요청이 취소되었습니다.");
 		                    }
 		                }
@@ -282,48 +286,48 @@ public class AccountManager {
 	    }
 	}
 	
-	public void autoSave() {
-	    try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-	            new FileOutputStream("src/banking/AutoSaveAccount.txt")))) {
-
-	        for (Account account : accountMg) {
-	            // 계좌 유형을 구분
-	            String accountType = ""; // 계좌 유형을 저장할 변수
-
-	            if (account instanceof NormalAccount) {
-	                accountType = "[보통계좌]";
-	            } else if (account instanceof CreditTrustAccount) {
-	                accountType = "[신용신뢰계좌]";
-	            }
-
-	            // 계좌 정보 출력 시 계좌 유형을 포함
-	            writer.write(accountType); // 계좌 유형 추가
-	            writer.newLine();
-	            writer.write("계좌번호: " + account.acnum); // 계좌번호
-	            writer.newLine();
-	            writer.write("이름: " + account.name); // 고객 이름
-	            writer.newLine();
-	            writer.write("잔고: " + account.money); // 잔고
-	            writer.newLine();
-
-	            // 신용신뢰계좌인 경우 신용등급도 출력
-	            if (account instanceof CreditTrustAccount) {
-	                CreditTrustAccount cta = (CreditTrustAccount) account;
-	                writer.write("신용등급: " + cta.creditGrade); // 신용등급
-	                writer.newLine();
-	            }
-
-	            writer.write("---------------"); // 구분선
-	            writer.newLine();
-	        }
-
-	        System.out.println("계좌 정보가 텍스트로 자동저장되었습니다.");
-
-	    } catch (Exception e) {
-	        System.out.println("자동 저장 중 예외 발생");
-	        e.printStackTrace();
-	    }
-	}
+//	public void autoSave() {
+//	    try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+//	            new FileOutputStream("src/banking/AutoSaveAccount.txt")))) {
+//
+//	        for (Account account : accountMg) {
+//	            // 계좌 유형을 구분
+//	            String accountType = ""; // 계좌 유형을 저장할 변수
+//
+//	            if (account instanceof NormalAccount) {
+//	                accountType = "[보통계좌]";
+//	            } else if (account instanceof CreditTrustAccount) {
+//	                accountType = "[신용신뢰계좌]";
+//	            }
+//
+//	            // 계좌 정보 출력 시 계좌 유형을 포함
+//	            writer.write(accountType); // 계좌 유형 추가
+//	            writer.newLine();
+//	            writer.write("계좌번호: " + account.acnum); // 계좌번호
+//	            writer.newLine();
+//	            writer.write("이름: " + account.name); // 고객 이름
+//	            writer.newLine();
+//	            writer.write("잔고: " + account.money); // 잔고
+//	            writer.newLine();
+//
+//	            // 신용신뢰계좌인 경우 신용등급도 출력
+//	            if (account instanceof CreditTrustAccount) {
+//	                CreditTrustAccount cta = (CreditTrustAccount) account;
+//	                writer.write("신용등급: " + cta.creditGrade); // 신용등급
+//	                writer.newLine();
+//	            }
+//
+//	            writer.write("---------------"); // 구분선
+//	            writer.newLine();
+//	        }
+//
+//	        System.out.println("계좌 정보가 텍스트로 자동저장되었습니다.");
+//
+//	    } catch (Exception e) {
+//	        System.out.println("자동 저장 중 예외 발생");
+//	        e.printStackTrace();
+//	    }
+//	}
 
 
 
@@ -392,12 +396,16 @@ public class AccountManager {
             }
 
             for (Account acc : accountMg) {
-               
-                if (acc instanceof NormalAccount) {
+            	  if(acc instanceof SpecialAccount) {
+                  	writer.write("[특판계좌]");
+                  }
+            	 else if (acc instanceof NormalAccount) {
                     writer.write("[보통계좌]");
-                } else if (acc instanceof CreditTrustAccount) {
+                } 
+                else if (acc instanceof CreditTrustAccount) {
                     writer.write("[신용신뢰계좌]");
                 }
+               
 
                 writer.newLine();
                 writer.write("계좌번호: " + acc.acnum);

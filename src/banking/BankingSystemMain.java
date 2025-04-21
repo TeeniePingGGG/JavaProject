@@ -51,7 +51,7 @@ public class BankingSystemMain {
 				scan.nextLine();
 				
 				if(choice < 1 || choice > 7) {
-					throw new NumberError("1~6 사이의 숫자를 입력해주세요");
+					throw new NumberError("1~7 사이의 숫자를 입력해주세요");
 				}
 				
 				switch(choice) {
@@ -74,7 +74,7 @@ public class BankingSystemMain {
 				    break;
 				case 7:
 					handler.saveAcnum();
-					System.out.println("**** 프로그램 종료 ****");
+					System.out .println("**** 프로그램 종료 ****");
 					return;
 			}
 			

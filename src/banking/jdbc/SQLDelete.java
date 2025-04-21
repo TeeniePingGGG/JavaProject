@@ -13,9 +13,6 @@ public class SQLDelete extends MyConnection{
 		try {
 			
 			
-			
-			
-			
 			//계좌번호
 			query ="delete from banking where acnum=?";
 			psmt = con.prepareStatement(query);
